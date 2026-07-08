@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mixmybowl | Dein individuelles Bio-Müsli</title>
+    <meta name="description" content="Mixe dir dein individuelles Bio-Müsli: Basis, Früchte, Nüsse und Extras selbst zusammenstellen – mit automatischer Nährwert- und Preisberechnung.">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;1,9..144,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="nav-container">
+        <div class="header-left">
+            <a class="logo-wrapper" onclick="navigateTo('konfigurator')">
+                <div class="bowl-logo"></div>
+                <h1 class="logo">mixmy<span>bowl</span></h1>
+            </a>
+        </div>
+        <div class="header-center">
+            <span class="nav-link active-nav" id="nav-konfigurator" onclick="navigateTo('konfigurator')">Müsli-Mixer</span>
+            <span class="nav-link" id="nav-philosophie" onclick="navigateTo('philosophie')">Unsere Philosophie</span>
+        </div>
+        <div class="header-right">
+            <div class="cart-icon-wrapper" onclick="navigateTo('warenkorb')">
+                <span class="nav-link" id="nav-warenkorb">Warenkorb</span>
+                <span class="cart-badge" id="cart-global-count">0</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div id="page-konfigurator" class="app-page active-page">
+    <section class="hero">
+        <h1>mix deine bowl perfekt portioniert.</h1>
+        <p>Wähle eine nahrhafte Basis, frische Früchte und knackige Extras. Unser System berechnet deine Werte vollautomatisch und liefert exakt abgewogen.</p>
+        <div class="filter-section">
+            <div class="filter-label">Filteroptionen:</div>
+            <div class="goal-buttons">
+                <button class="goal-btn" data-goal="muscle">Muskelaufbau (High Protein)</button>
+                <button class="goal-btn" data-goal="diet">Fettverlust (Low Kcal)</button>
+                <button class="goal-btn" data-goal="lowcarb">Low Carb</button>
+                <button class="goal-btn" data-goal="vegan">Vegan</button>
+            </div>
+        </div>
+    </section>
+
+    <main class="workspace">
+        <div class="panel">
+            <div class="search-wrapper">
+                <input type="text" id="ingredient-search" class="search-input" placeholder="Zutat suchen..." autocomplete="off">
+            </div>
+            <div id="ingredients-container"></div>
+        </div>
+
+        <div class="visual">
+            <div class="bowl-area" id="bowl-zone">
+                <div class="bowl" id="bowl-preview"></div>
+            </div>
+            <div class="dashboard">
+                <div class="grid-stats">
+                    <div class="stat-box">Gesamtgewicht<strong><span id="out-total">0</span>g</strong></div>
+                    <div class="stat-box">Energie<strong><span id="out-kcal">0</span> kcal</strong></div>
+                    <div class="stat-box">Fett<strong><span id="out-fat">0.0</span>g</strong></div>
+                    <div class="stat-box">Protein<strong><span id="out-protein">0.0</span>g</strong></div>
+                    <div class="stat-box">Kohlenhydrate<strong><span id="out-carbs">0.0</span>g</strong></div>
+                    <div class="stat-box">Preis<strong><span id="out-price">0.00</span> €</strong></div>
+                </div>
+                <div class="macro-row">
+                    <div class="macro-donut" id="macro-donut"></div>
+                    <div class="macro-legend" id="macro-legend">
+                        <span class="legend-empty">Wähle Zutaten für deine Makro-Verteilung</span>
+                    </div>
+                </div>
+                <div class="action-bar">
+                    <button class="btn-secondary" id="btn-reset">Zurücksetzen</button>
+                    <button class="btn-primary" id="btn-order">In den Warenkorb</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div id="page-philosophie" class="app-page">
+    <div class="content-container">
+        <h2>Unsere Philosophie</h2>
+        <p style="font-size: 1.15rem; color: var(--forest-green); font-style: italic;">Aus Liebe zum echten Geschmack und bewusster Ernährung.</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+        
+        <div class="philosophy-section">
+            <div class="philosophy-text">
+                <h3>Qualitätsgarantie</h3>
+                <p>Bei uns landet nur das Beste in der Schüssel. Alle Zutaten stammen zu 100 % aus kontrolliert biologischem Anbau, sind frei von künstlichen Zusätzen, raffiniertem Zucker oder Konservierungsstoffen.</p>
+            </div>
+            <div class="philosophy-image-wrapper">
+                <img src="qualitaet.jpg" alt="Goldenes, biologisches Haferfeld im Sonnenlicht">
+            </div>
+        </div>
+
+        <div class="philosophy-section">
+            <div class="philosophy-text">
+                <h3>Unsere Erzeuger</h3>
+                <p>Wir glauben fest an faire Partnerships. Deshalb beziehen wir unsere Haferflocken, Nüsse und Saaten ohne Umwege direkt von regionalen Bio-Höfen und Erzeugergemeinschaften.</p>
+            </div>
+            <div class="philosophy-image-wrapper">
+                <img src="erzeuger.jpg" alt="Idyllischer, nachhaltiger Bio-Bauernhof">
+            </div>
+        </div>
+
+        <div class="philosophy-section">
+            <div class="philosophy-text">
+                <h3>Nachhaltigkeit</h3>
+                <p>Gesunde Ernährung hört nicht beim Müsli auf. Vom CO₂-neutralen Versand bis hin zu unseren vollständig kompostierbaren Verpackungen verringern wir unseren ökologischen Fußabdruck.</p>
+            </div>
+            <div class="philosophy-image-wrapper">
+                <img src="nachhaltigkeit.jpg" alt="Umweltfreundliche, nachhaltige Verpackung aus Kraftpapier">
+            </div>
+        </div>
+        
+        <button class="btn-primary" style="margin-top: 50px; width: 100%;" onclick="navigateTo('konfigurator')">Jetzt eigene Bowl mixen</button>
+    </div>
+</div>
+
+<div id="page-warenkorb" class="app-page">
+    <div class="content-container">
+        <h2>Dein Warenkorb</h2>
+        <p>Hier siehst du die exakte Zusammenstellung deiner individualisierten Bio-Bowl.</p>
+        
+        <div id="cart-content-target"></div>
+        
+        <div class="action-bar" style="margin-top: 40px;">
+            <button class="btn-secondary" onclick="navigateTo('konfigurator')">Weiter mixen</button>
+            <button class="btn-primary" id="btn-checkout-execute" style="background: var(--accent-red);">Zahlungspflichtig bestellen</button>
+        </div>
+    </div>
+</div>
+
+<div id="page-erfolg" class="app-page">
+    <div class="content-container" style="text-align: center; padding: 60px 40px;">
+        <div class="success-icon">✓</div>
+        <h2>Vielen Dank für deine Bestellung!</h2>
+        <p style="font-size: 1.1rem; color: var(--slate-grey); max-width: 500px; margin: 0 auto 35px auto; line-height: 1.6;">
+            Deine individuelle Bio-Bowl wurde erfolgreich übermittelt. Wir wiegen deine Zutaten nun exakt ab und übergeben dein Frühstück frisch verpackt in den klimaneutralen Versand.
+        </p>
+        <button class="btn-primary" style="max-width: 300px; margin: 0 auto;" onclick="navigateTo('konfigurator')">Neue Bowl kreieren</button>
+    </div>
+</div>
+
+<div id="page-impressum" class="app-page">
+    <div class="content-container">
+        <h2>Impressum</h2>
+        <p style="color: var(--slate-grey);">Angaben gemäß § 5 TMG</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+
+        <h3>Diensteanbieter</h3>
+        <p>
+            mixmybowl GmbH (Platzhalter)<br>
+            Musterstraße 1<br>
+            12345 Musterstadt<br>
+            Deutschland
+        </p>
+
+        <h3>Kontakt</h3>
+        <p>
+            Telefon: 0123 / 456789 (Platzhalter)<br>
+            E-Mail: kontakt@mixmybowl.de (Platzhalter)
+        </p>
+
+        <h3>Vertreten durch</h3>
+        <p>Max Mustermann, Geschäftsführung (Platzhalter)</p>
+
+        <h3>Registereintrag</h3>
+        <p>
+            Eintragung im Handelsregister (Platzhalter)<br>
+            Registergericht: Amtsgericht Musterstadt<br>
+            Registernummer: HRB 00000
+        </p>
+
+        <h3>Umsatzsteuer-ID</h3>
+        <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE000000000 (Platzhalter)</p>
+
+        <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+        <p>Max Mustermann, Musterstraße 1, 12345 Musterstadt (Platzhalter)</p>
+
+        <p style="font-size: 0.85rem; color: var(--slate-grey); margin-top: 30px;">
+            Dies ist eine Platzhalterseite für Demo-Zwecke. Vor dem Live-Betrieb müssen alle Angaben durch die tatsächlichen, rechtlich korrekten Unternehmensdaten ersetzt werden.
+        </p>
+
+        <button class="btn-secondary" style="margin-top: 30px;" onclick="navigateTo('konfigurator')">Zurück zum Müsli-Mixer</button>
+    </div>
+</div>
+
+<div id="page-datenschutz" class="app-page">
+    <div class="content-container">
+        <h2>Datenschutzerklärung</h2>
+        <p style="color: var(--slate-grey);">Stand: Platzhalter-Version</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+
+        <h3>1. Datenschutz auf einen Blick</h3>
+        <p>Diese Website erhebt und verarbeitet personenbezogene Daten nur im Rahmen der geltenden Datenschutzbestimmungen (DSGVO, BDSG). Nachfolgend informieren wir dich darüber, welche Daten bei der Nutzung dieser Website verarbeitet werden.</p>
+
+        <h3>2. Verantwortliche Stelle</h3>
+        <p>
+            mixmybowl GmbH (Platzhalter)<br>
+            Musterstraße 1, 12345 Musterstadt<br>
+            E-Mail: datenschutz@mixmybowl.de (Platzhalter)
+        </p>
+
+        <h3>3. Erhebung und Speicherung personenbezogener Daten</h3>
+        <p>Beim Besuch dieser Website werden automatisch technische Informationen erfasst (z. B. Browsertyp, verwendetes Betriebssystem, Zugriffszeit). Bei einer Bestellung werden zusätzlich Name, Lieferadresse und Zahlungsinformationen verarbeitet, soweit für die Vertragsabwicklung erforderlich.</p>
+
+        <h3>4. Cookies und lokale Speicherung</h3>
+        <p>Diese Seite kann technisch notwendige Cookies bzw. lokale Speicherfunktionen verwenden, um deine Müsli-Auswahl und Warenkorb-Inhalte zu speichern. Diese sind für die Funktion des Konfigurators erforderlich.</p>
+
+        <h3>5. Deine Rechte</h3>
+        <p>Du hast jederzeit das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner gespeicherten personenbezogenen Daten sowie ein Widerspruchsrecht gegen die Verarbeitung.</p>
+
+        <p style="font-size: 0.85rem; color: var(--slate-grey); margin-top: 30px;">
+            Dies ist eine Platzhalterseite für Demo-Zwecke und ersetzt keine rechtsverbindliche Datenschutzerklärung. Vor dem Live-Betrieb sollte diese von einer fachkundigen Stelle geprüft und vervollständigt werden.
+        </p>
+
+        <button class="btn-secondary" style="margin-top: 30px;" onclick="navigateTo('konfigurator')">Zurück zum Müsli-Mixer</button>
+    </div>
+</div>
+
+<div id="page-agb" class="app-page">
+    <div class="content-container">
+        <h2>Allgemeine Geschäftsbedingungen</h2>
+        <p style="color: var(--slate-grey);">Stand: Platzhalter-Version</p>
+        <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 25px 0;">
+
+        <h3>§ 1 Geltungsbereich</h3>
+        <p>Diese Allgemeinen Geschäftsbedingungen gelten für alle Bestellungen, die über den Müsli-Mixer von mixmybowl (Platzhalter) abgegeben werden.</p>
+
+        <h3>§ 2 Vertragsschluss</h3>
+        <p>Die Darstellung der Zutaten und Bowls im Konfigurator stellt kein bindendes Angebot dar, sondern eine Aufforderung zur Abgabe einer Bestellung. Mit Klick auf „Zahlungspflichtig bestellen" gibst du eine verbindliche Bestellung ab.</p>
+
+        <h3>§ 3 Preise und Versandkosten</h3>
+        <p>Alle angegebenen Preise verstehen sich inklusive der gesetzlichen Mehrwertsteuer. Es gelten die zum Zeitpunkt der Bestellung im Warenkorb angezeigten Preise.</p>
+
+        <h3>§ 4 Widerrufsrecht</h3>
+        <p>Da es sich bei den Bowls um individuell nach Kundenspezifikation angefertigte Waren handelt, ist das Widerrufsrecht gemäß § 312g Abs. 2 Nr. 1 BGB grundsätzlich ausgeschlossen.</p>
+
+        <h3>§ 5 Lieferung</h3>
+        <p>Die Lieferung erfolgt klimaneutral innerhalb der auf der Bestellbestätigung angegebenen Frist an die angegebene Lieferadresse.</p>
+
+        <p style="font-size: 0.85rem; color: var(--slate-grey); margin-top: 30px;">
+            Dies ist eine Platzhalterseite für Demo-Zwecke und ersetzt keine rechtsverbindlichen AGB. Vor dem Live-Betrieb sollten diese von einer fachkundigen Stelle erstellt bzw. geprüft werden.
+        </p>
+
+        <button class="btn-secondary" style="margin-top: 30px;" onclick="navigateTo('konfigurator')">Zurück zum Müsli-Mixer</button>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <h3>mixmy<span>bowl</span></h3>
+            <p>Dein Partner für bewusste und unkomplizierte Ernährung. Frisch verpackt und klimaneutral zu dir geliefert.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Philosophie</h4>
+            <ul>
+                <li><a onclick="navigateTo('philosophie')">Qualitätsgarantie</a></li>
+                <li><a onclick="navigateTo('philosophie')">Unsere Erzeuger</a></li>
+                <li><a onclick="navigateTo('philosophie')">Nachhaltigkeit</a></li>
+            </ul>
+        </div>
+        <div class="footer-links">
+            <h4>Konfigurator</h4>
+            <ul>
+                <li><a onclick="navigateTo('konfigurator')">Müsli-Mixer</a></li>
+                <li><a onclick="navigateTo('warenkorb')">Warenkorb öffnen</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <div>&copy; 2026 mixmybowl. Alle Rechte vorbehalten.</div>
+        <div class="footer-legal-links">
+            <a onclick="navigateTo('impressum')">Impressum</a>
+            <a onclick="navigateTo('datenschutz')">Datenschutz</a>
+            <a onclick="navigateTo('agb')">AGB</a>
+        </div>
+    </div>
+</footer>
+
+<div id="toast-holder" class="toast-holder"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
