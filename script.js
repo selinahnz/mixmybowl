@@ -1,3 +1,10 @@
+/* ===== Supabase-Anbindung =====
+   Trage hier deine eigene Project URL und den anon public key ein
+   (zu finden in Supabase unter Project Settings -> API). */
+const SUPABASE_URL = "https://qkjjncxbcczyaudoxpyw.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFrampuY3hiY2N6eWF1ZG94cHl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODM1MTAyMDksImV4cCI6MjA5OTA4NjIwOX0.xE5W40MrpdLIfd7KcvBzzF0WqoSUAXPqTG-4H24O3k8";
+const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 const TEXTURES = {
     flakes: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.2) 0%, transparent 60%), linear-gradient(135deg, rgba(0,0,0,0.03) 25%, transparent 25%), linear-gradient(225deg, rgba(0,0,0,0.03) 25%, transparent 25%)",
     creamy: "radial-gradient(circle at 10% 10%, rgba(255,255,255,0.8) 0%, transparent 40%), radial-gradient(circle at 90% 90%, rgba(0,0,0,0.1) 0%, transparent 50%), linear-gradient(135deg, rgba(255,255,255,0.4), transparent)",
@@ -454,6 +461,27 @@ function updateView() {
     updateMacroDonut(totals);
 }
 
+function buildOrderSummary() {
+    const items = [];
+    let totals = { weight: 0, kcal: 0, p: 0, f: 0, c: 0, price: 0 };
+
+    for (const id in appState) {
+        const qty = appState[id];
+        if (qty > 0) {
+            const item = findItemData(id);
+            if (!item) continue;
+            totals.weight += item.amount * qty;
+            totals.kcal += item.kcal * qty;
+            totals.p += item.p * qty;
+            totals.f += item.f * qty;
+            totals.c += item.c * qty;
+            totals.price += item.price * qty;
+            items.push({ id, name: item.name, amount: item.amount * qty, qty });
+        }
+    }
+    return { items, totals };
+}
+
 function renderWarenkorbPage() {
     const target = document.getElementById("cart-content-target");
     target.innerHTML = "";
@@ -547,9 +575,40 @@ function setupGlobalEventListeners() {
         navigateTo('warenkorb');
     });
 
-    document.getElementById("btn-checkout-execute").addEventListener("click", () => {
-        resetApplication();
-        navigateTo('erfolg');
+    document.getElementById("btn-checkout-execute").addEventListener("click", async () => {
+        const btn = document.getElementById("btn-checkout-execute");
+        const { items, totals } = buildOrderSummary();
+
+        if (items.length === 0) {
+            showToast("Dein Warenkorb ist leer.");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Wird übermittelt...";
+
+        try {
+            const { error } = await supabaseClient.from("orders").insert({
+                items: items,
+                total_weight: totals.weight,
+                total_kcal: totals.kcal,
+                total_protein: totals.p,
+                total_fat: totals.f,
+                total_carbs: totals.c,
+                total_price: totals.price
+            });
+
+            if (error) throw error;
+
+            resetApplication();
+            navigateTo('erfolg');
+        } catch (err) {
+            console.error("Supabase-Fehler beim Speichern der Bestellung:", err);
+            showToast("Bestellung konnte nicht übermittelt werden. Bitte versuche es erneut.");
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "Zahlungspflichtig bestellen";
+        }
     });
 
     document.querySelectorAll(".goal-btn").forEach(btn => {
