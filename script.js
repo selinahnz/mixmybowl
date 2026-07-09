@@ -75,7 +75,7 @@ const DATABASE = {
     }
 };
 
-const MAX_QTY = 2;
+const MAX_QTY = 5;
 let appState = {};
 let currentActiveFilter = null;
 
